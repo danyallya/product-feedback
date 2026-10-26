@@ -21,7 +21,7 @@ Requirements: Node.js 20.11+ and npm.
 
 1. Copy .env.example to .env.
 2. Local development uses TURSO_DATABASE_URL=file:./feedback.db. For a hosted Turso database, set its URL and token in your local environment.
-3. Install dependencies with npm install.
+3. Install dependencies with npm ci.
 4. Create/apply the local schema with npm run db:push.
 5. Start the product with npm run dev and open http://localhost:3000.
 

@@ -1,7 +1,7 @@
 "use client";
 import * as Tabs from "@radix-ui/react-tabs";
 import {useMemo,useState} from "react";
-import {FiArrowRight,FiArrowUp,FiBell,FiCheck,FiChevronDown,FiChevronRight,FiCommand,FiMessageSquare,FiMoon,FiPlus,FiSearch,FiSun,FiTrendingUp} from "react-icons/fi";
+import {FiArrowRight,FiArrowUp,FiBell,FiCheck,FiChevronDown,FiChevronRight,FiMessageSquare,FiMoon,FiPlus,FiSearch,FiSun,FiTrendingUp} from "react-icons/fi";
 import {Button} from "@/components/ui/button";
 import {useMorrowTheme} from "@/components/theme-provider";
 type Idea={id:string;title:string;description:string;category:string;status:string;votes:number;comments:number;author:string;color:string};
