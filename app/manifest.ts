@@ -1,0 +1,2 @@
+import type {MetadataRoute} from "next";
+export default function manifest():MetadataRoute.Manifest{return{name:"Morrow Product Feedback",short_name:"Morrow",description:"A shared home for product ideas and roadmap updates.",start_url:"/",display:"standalone",background_color:"#f7f6f2",theme_color:"#f7f6f2",icons:[{src:"/icons/morrow.svg",sizes:"any",type:"image/svg+xml",purpose:"any maskable"}]}}
