@@ -48,3 +48,7 @@ Nexus returned 404 for packages used by this project. Following the user's appro
 The work log must show review, focused tests, implemented scope, debugging, responsive/theme/accessibility checks, honest verification, updated docs and the next day’s tasks. No activity-only commits.
 
 - Day 01: Done. The current preview journey, canonical status vocabulary, vote identity policy, workspace access boundaries and future API/test plan are documented. The board and roadmap anchors are verified; visible Changelog, Privacy, Community guidelines and Powered-by links still lack targets. Carry this into Day 02 while extracting the board shell and accessible shared controls.
+
+## Process change effective Day 02 — 2026-10-27
+
+Apply [DELIVERY-POLICY.md](DELIVERY-POLICY.md) to every remaining ticket: finish Morrow before the next repository, use meaningful scope-driven commits and deliver through its own reviewed PR. A blocked external gate needs a concrete record and next action. This adds delivery gates without moving Day 02–30 product work or changing completed history.

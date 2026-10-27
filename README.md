@@ -65,3 +65,7 @@ The test plan covers public/private workspace isolation, anonymous write setting
 
 ## Trust and moderation
 Customer ideas can include sensitive business context. Production must use authenticated administrative actions, validated public submissions, scoped exports, rate limits, spam controls and a clear retention/deletion policy. Public service-worker caches must never include private workspace data.
+
+## Delivery and review
+
+Morrow review checks workspace-scoped opaque voter identity, repeat-vote idempotency and public/private moderation boundaries while preserving the customer journey from board to roadmap. Follow [DELIVERY-POLICY.md](DELIVERY-POLICY.md) from Day 02 for sequential execution, scope-driven commits and this repository's separate branch/PR with GitHub panel review and merge.
