@@ -17,3 +17,10 @@
 - Checks: `npm test` passed (1 file, 1 test); `npm run lint`, `npm run typecheck`, `npm run db:generate` (no schema changes), `npm run build`, and `git diff --check` passed. No local or hosted database write was run.
 - GitHub: implementation/docs commit `85f136d` (`docs: define feedback board journey and access contract`) was pushed to `day-01/customer-journey-contract`, fast-forwarded to `main`, and `main` was pushed. This log entry will be included in the final sync.
 - Next: Day 02 — extract the public board shell and shared controls, persist accessible theme preference, and close the unimplemented navigation targets.
+
+## Review workflow maintenance — 2026-10-27
+
+- The user requested careful sequential project execution, commit content/counts suited to each product and an independent branch/PR per repository with panel review and merge.
+- Morrow review checks workspace-scoped opaque voter identity, repeat-vote idempotency and public/private moderation boundaries while preserving the customer journey from board to roadmap. Added a standalone delivery policy and entry points in AGENTS, README and BACKLOG.
+- Documentation-only maintenance on `docs/morrow-vote-moderation`; Markdown diff reviewed and `git diff --check` used. No application tests/build rerun for this process change. Next product work: Day 02 — public board shell, shared controls, persistent accessible theme and working navigation targets.
+- This is the pre-merge log state. The portfolio workspace DELIVERY-RECEIPTS.md records the actual PR URL, checked head, panel gates, merge SHA and sync afterward; reconcile it here in the next authorized update.
