@@ -37,3 +37,7 @@ Historical Day 00/01 entries describe their original workflow. This policy super
 Vote identity, moderation and customer-journey navigation are separate product concerns. Use actual completed changes to determine commits, and keep the matching data migration/validation tests together.
 
 Next planned scope: Day 02 — public board shell, shared controls, persistent accessible theme and working navigation targets.
+
+## Contribution evidence
+
+Follow [CONTRIBUTING.md](CONTRIBUTING.md) within the existing delivery scope. Consider an opaque-voter duplicate/withdrawal or public/private moderation case. Keep real issue links and agreed coauthor attribution with the matching change. Profile goals do not change commit counts, review gates, day numbering or authorization for external contact/settings/payment.
