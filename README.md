@@ -69,3 +69,7 @@ Customer ideas can include sensitive business context. Production must use authe
 ## Delivery and review
 
 Morrow review checks workspace-scoped opaque voter identity, repeat-vote idempotency and public/private moderation boundaries while preserving the customer journey from board to roadmap. Follow [DELIVERY-POLICY.md](DELIVERY-POLICY.md) from Day 02 for sequential execution, scope-driven commits and this repository's separate branch/PR with GitHub panel review and merge.
+
+## Contributions and examples
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for reproducible reports, genuine collaboration and product examples such as a synthetic idea-to-roadmap walkthrough with honest vote state. Contributions follow the product backlog and reviewed PR workflow.

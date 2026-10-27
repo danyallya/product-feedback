@@ -52,3 +52,7 @@ The work log must show review, focused tests, implemented scope, debugging, resp
 ## Process change effective Day 02 — 2026-10-27
 
 Apply [DELIVERY-POLICY.md](DELIVERY-POLICY.md) to every remaining ticket: finish Morrow before the next repository, use meaningful scope-driven commits and deliver through its own reviewed PR. A blocked external gate needs a concrete record and next action. This adds delivery gates without moving Day 02–30 product work or changing completed history.
+
+## Contribution integration — 2026-10-27
+
+Effective Day 02: apply [CONTRIBUTING.md](CONTRIBUTING.md) inside existing tickets. At already scheduled weekly reviews, assess real feedback such as an opaque-voter duplicate/withdrawal or public/private moderation case; at documentation/setup tickets, improve a synthetic idea-to-roadmap walkthrough with honest vote state. Day 30 records actual contribution evidence and outstanding external dependencies. No day is renumbered and no quota or badge is a completion criterion. Next scope remains: Day 02 — public board shell, shared controls, persistent accessible theme and working navigation targets.

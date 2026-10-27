@@ -24,3 +24,11 @@
 - Morrow review checks workspace-scoped opaque voter identity, repeat-vote idempotency and public/private moderation boundaries while preserving the customer journey from board to roadmap. Added a standalone delivery policy and entry points in AGENTS, README and BACKLOG.
 - Documentation-only maintenance on `docs/morrow-vote-moderation`; Markdown diff reviewed and `git diff --check` used. No application tests/build rerun for this process change. Next product work: Day 02 — public board shell, shared controls, persistent accessible theme and working navigation targets.
 - This is the pre-merge log state. The portfolio workspace DELIVERY-RECEIPTS.md records the actual PR URL, checked head, panel gates, merge SHA and sync afterward; reconcile it here in the next authorized update.
+
+## Contribution guidance maintenance — 2026-10-27
+
+- User request: integrate achievable GitHub profile goals naturally into future project work. Added Morrow contribution guidance around an opaque-voter duplicate/withdrawal or public/private moderation case and useful documentation examples. Preserved the daily backlog and all delivery gates.
+- Previous delivery-policy PR #1 is merged in origin/main; this maintenance starts from that merged history. No badge, collaborator, star or accepted answer is claimed.
+- Documentation-only scope on docs/morrow-board-participation; reviewed Markdown and git diff --check. App tests/build are not rerun because runtime behavior is unchanged.
+- External blocker: local browser use is disabled in Work settings. PR creation, panel review and merge remain pending; resume from this branch when browser access is available, inspect existing PRs first, target main and follow all gates.
+- Publication is pre-merge here; the final PR/head/panel/check/merge/sync evidence goes in the workspace DELIVERY-RECEIPTS.md after completion. Next: Day 02 — public board shell, shared controls, persistent accessible theme and working navigation targets. Wait for the user's day trigger.
