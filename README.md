@@ -42,5 +42,26 @@ Drizzle defines Workspace, Idea, Vote and Comment tables. Foreign keys cascade f
 
 See AGENTS.md for the everyday review, testing and documentation cycle and BACKLOG.md for the complete 30-day roadmap. The local foundation branch is day-00-foundation.
 
+## Day 01 customer journey and status vocabulary
+
+- The current `/` preview lets a visitor browse/search/filter ideas, toggle a local vote, submit a local idea, and view roadmap lanes. It uses curated examples and component state; submissions and votes disappear on reload and are not persisted.
+- Current navigation targets are `#ideas` and `#roadmap`. Changelog, privacy, community-guideline and powered-by links are visible placeholders without target sections or routes. These destinations need explicit sections or links before their controls are presented as working navigation.
+- Canonical idea statuses for the product are Considering, Planned, In progress, Shipped and Declined. The preview currently demonstrates Considering, Planned and In progress; the roadmap separately shows shipped work. Public status changes need an update timestamp and workspace-team attribution.
+- The public customer journey is browse → filter/search → vote or submit context → follow a status update through the roadmap. Submission must show its moderation state; a vote is one active vote per idea and can be withdrawn. Repeated requests must be idempotent, and the stored voter key must be an opaque workspace-scoped identifier, never a raw IP address or email address. The existing unique `(idea_id, voter_key)` index supports that future contract; current votes are only local toggles.
+
+## Workspace boundary and API/test plan
+
+| Actor | Public workspace | Private workspace | Moderation and roadmap updates |
+|---|---|---|---|
+| Anonymous visitor | Read only ideas explicitly published to that workspace; submit/vote only when enabled | Denied | Denied |
+| Authenticated workspace member | Public reads plus workspace-scoped team access | Only their active workspace | Allowed only for assigned team capabilities |
+| Workspace owner/admin | Same record boundary as a member | Only their active workspace | Manage visibility, membership and team decisions within that workspace |
+
+The server derives workspace scope from the public slug for public reads and from the authenticated session for private/team actions. A caller-supplied workspace ID must never grant access. Private ideas and moderation state stay out of public responses and service-worker caches.
+
+Planned route contract: `GET /api/workspaces/:slug/ideas` lists only public ideas with status/category filters and stable pagination; `POST /api/workspaces/:slug/ideas` validates and rate-limits submissions before moderation; `POST`/`DELETE /api/ideas/:id/vote` idempotently adds or withdraws the visitor's vote; `GET /api/workspaces/:slug/roadmap` returns published roadmap items; `GET`/`POST /api/ideas/:id/comments` enforce visibility and moderation; authenticated `PATCH /api/team/ideas/:id` changes status with attribution. These are future contracts, not implemented routes.
+
+The test plan covers public/private workspace isolation, anonymous write settings, owner/member authorization, hidden and pending ideas, input validation/rate limits, duplicate-vote idempotency and withdrawal, comment moderation, status timestamp/attribution, stable filtering/pagination, and service-worker cache exclusions. Current Vitest coverage renders the board and checks its current idea/roadmap destinations; it does not yet prove persistence, authorization, moderation or vote identity.
+
 ## Trust and moderation
 Customer ideas can include sensitive business context. Production must use authenticated administrative actions, validated public submissions, scoped exports, rate limits, spam controls and a clear retention/deletion policy. Public service-worker caches must never include private workspace data.

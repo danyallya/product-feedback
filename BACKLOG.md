@@ -13,7 +13,7 @@ Nexus returned 404 for packages used by this project. Following the user's appro
 
 | Day | Deliverable |
 |---|---|
-| 01 | Confirm product scope, customer journey, status vocabulary, workspace boundary and test baseline. |
+| 01 | Done — document customer journey, status vocabulary, vote privacy, workspace boundary, API/test contract and baseline. |
 | 02 | Extract public board layout, shared controls and persistent accessible light/dark theme. |
 | 03 | Establish Drizzle/Turso connection, migrations and reproducible workspace seed. |
 | 04 | Add workspace setup, owner authentication and public/private visibility controls. |
@@ -46,3 +46,5 @@ Nexus returned 404 for packages used by this project. Following the user's appro
 
 ## Completion gate
 The work log must show review, focused tests, implemented scope, debugging, responsive/theme/accessibility checks, honest verification, updated docs and the next day’s tasks. No activity-only commits.
+
+- Day 01: Done. The current preview journey, canonical status vocabulary, vote identity policy, workspace access boundaries and future API/test plan are documented. The board and roadmap anchors are verified; visible Changelog, Privacy, Community guidelines and Powered-by links still lack targets. Carry this into Day 02 while extracting the board shell and accessible shared controls.
