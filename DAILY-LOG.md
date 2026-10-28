@@ -32,3 +32,11 @@
 - Documentation-only scope on docs/morrow-board-participation; reviewed Markdown and git diff --check. App tests/build are not rerun because runtime behavior is unchanged.
 - External blocker: local browser use is disabled in Work settings. PR creation, panel review and merge remain pending; resume from this branch when browser access is available, inspect existing PRs first, target main and follow all gates.
 - Publication is pre-merge here; the final PR/head/panel/check/merge/sync evidence goes in the workspace DELIVERY-RECEIPTS.md after completion. Next: Day 02 — public board shell, shared controls, persistent accessible theme and working navigation targets. Wait for the user's day trigger.
+
+## Day 02 — Morrow board controls — 2026-10-28
+
+- Reconciled merged policy/contribution PRs #1/#2 at main 2b6081a and reviewed prior journey/vote/privacy contracts. Found Newest incorrectly filtering for a nonexistent status; selectIdeas now sorts all statuses while keeping source order immutable. Added regression cases for Newest, Planned and empty search.
+- Extracted BoardLayout and VoteButton; labels distinguish upvote/withdraw and expose pressed state. Search is named, skip target focusable and footer/Changelog destinations explain the real preview limits. Mobile keeps Changelog visible. Theme initialization restores validated preference before writes and tolerates blocked storage; only appearance persists.
+- Four tests passed; lint/build/typecheck final outcomes are in the workspace receipt. Reviewed changed source/tests/docs locally; no database write, vote identity persistence, moderation, outreach or fabricated profile activity added. Synthetic board/control cases are useful contribution evidence.
+- Work browser disabled: actual keyboard/phone/tablet/theme inspection, PR creation/exact-head Files changed/Checks/conversation panel review, merge and main sync pending on day-02/morrow-board-controls. No live-vote, CI, independent approval or badge claim.
+- Next: finish Day 02 delivery gates, then Day 03 Drizzle/Turso connection, migrations and reproducible synthetic workspace seed on its manual trigger.

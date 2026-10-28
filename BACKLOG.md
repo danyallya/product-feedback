@@ -14,7 +14,7 @@ Nexus returned 404 for packages used by this project. Following the user's appro
 | Day | Deliverable |
 |---|---|
 | 01 | Done — document customer journey, status vocabulary, vote privacy, workspace boundary, API/test contract and baseline. |
-| 02 | Extract public board layout, shared controls and persistent accessible light/dark theme. |
+| 02 | Implemented, delivery blocked — BoardLayout, shared vote control, corrected Newest filter and safe theme; browser/PR panel gates pending. |
 | 03 | Establish Drizzle/Turso connection, migrations and reproducible workspace seed. |
 | 04 | Add workspace setup, owner authentication and public/private visibility controls. |
 | 05 | Persist idea submission with server validation, rate limits and moderation state. |
