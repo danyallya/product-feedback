@@ -73,3 +73,7 @@ Morrow review checks workspace-scoped opaque voter identity, repeat-vote idempot
 ## Contributions and examples
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for reproducible reports, genuine collaboration and product examples such as a synthetic idea-to-roadmap walkthrough with honest vote state. Contributions follow the product backlog and reviewed PR workflow.
+
+## Day 02 public board controls
+
+BoardLayout owns public header/footer navigation and a skip link. Changelog, privacy, guidelines and powered-by links have explicit preview sections; mobile keeps Changelog reachable. VoteButton names the current action (upvote or withdraw) and exposes pressed state; counts remain illustrative session data. Newest now sorts every status rather than filtering on a nonexistent status, with pure selection tests. Search is labeled. Theme restores before writing, validates light/dark and handles inaccessible storage; only morrow-theme is persisted. Live identity, moderation and API security remain later work. Actual responsive/theme/keyboard review is blocked by Work browser access.

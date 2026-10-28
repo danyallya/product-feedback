@@ -11,5 +11,11 @@ describe("product-feedback workspace", () => {
     expect(markup).toContain('id="roadmap"');
     expect(markup).toContain("A true quiet mode for notifications");
     expect(markup).toContain("In progress");
+    expect(markup).toContain('aria-label="Find an idea"');
+    for (const target of ['changelog', 'privacy', 'guidelines', 'powered']) {
+      expect(markup).toContain(`id="${target}"`);
+      expect(markup).toContain(`href="#${target}"`);
+    }
+    expect(markup).toContain('session preview');
   });
 });
