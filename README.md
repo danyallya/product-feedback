@@ -20,10 +20,11 @@ Next.js App Router, React, TypeScript, Tailwind CSS, shadcn/ui component pattern
 Requirements: Node.js 20.11+ and npm.
 
 1. Copy .env.example to .env.
-2. Local development uses TURSO_DATABASE_URL=file:./feedback.db. For a hosted Turso database, set its URL and token in your local environment.
+2. Local development uses TURSO_DATABASE_URL=file:./feedback.db. For a hosted Turso database, set both its URL and TURSO_AUTH_TOKEN in your local environment.
 3. Install dependencies with npm ci.
-4. Create/apply the local schema with npm run db:push.
-5. Start the product with npm run dev and open http://localhost:3000.
+4. Apply the checked-in schema migrations with npm run db:migrate.
+5. Optionally load synthetic local workspace data with npm run db:seed.
+6. Start the product with npm run dev and open http://localhost:3000.
 
 Do not commit .env, a local database, access tokens or the local .npmrc. Workspace API routes and persistent portal data are scheduled follow-up work.
 
@@ -36,6 +37,7 @@ Do not commit .env, a local database, access tokens or the local .npmrc. Workspa
 - npm run db:migrate — apply migrations
 - npm run db:push — sync a development schema
 - npm run db:studio — inspect local tables
+- npm run db:seed — upsert the sample workspace, ideas, votes and comments into the local feedback.db only
 
 ## Data model
 Drizzle defines Workspace, Idea, Vote and Comment tables. Foreign keys cascade from workspace to idea and idea to votes/comments. Compound indexes support status feeds and idea discussions; a unique voter/idea key prevents duplicate stored votes.
@@ -77,3 +79,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for reproducible reports, genuine collabo
 ## Day 02 public board controls
 
 BoardLayout owns public header/footer navigation and a skip link. Changelog, privacy, guidelines and powered-by links have explicit preview sections; mobile keeps Changelog reachable. VoteButton names the current action (upvote or withdraw) and exposes pressed state; counts remain illustrative session data. Newest now sorts every status rather than filtering on a nonexistent status, with pure selection tests. Search is labeled. Theme restores before writing, validates light/dark and handles inaccessible storage; only morrow-theme is persisted. Live identity, moderation and API security remain later work. Actual responsive/theme/keyboard review is blocked by Work browser access.
+
+## Day 03 local data setup
+
+`lib/db.ts` creates the server-only Drizzle/libSQL client from `TURSO_DATABASE_URL`, reuses it during Next.js development reloads, and requires `TURSO_AUTH_TOKEN` for remote URLs. The checked-in SQLite migration is applied with `db:migrate`; it creates the workspace, idea, vote and comment tables with their foreign keys and indexes.
+
+`db:seed` is limited to the exact local URL `file:./feedback.db`. It idempotently upserts one synthetic workspace, three ideas, four votes and two comments with stable IDs and timestamps. Voter keys are opaque sample labels, not personal identifiers. The script never targets a hosted Turso database; repeat runs update the reserved sample records without multiplying them. The current public UI remains a curated session preview and is not yet wired to this database.
