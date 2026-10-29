@@ -15,7 +15,7 @@ Nexus returned 404 for packages used by this project. Following the user's appro
 |---|---|
 | 01 | Done — document customer journey, status vocabulary, vote privacy, workspace boundary, API/test contract and baseline. |
 | 02 | Merged — BoardLayout, shared vote control, corrected Newest filter and safe theme. PR #4 merged at `1778ecd`; follow-up issues #3 and #5 remain open; #6 mobile readability was fixed in the PR. |
-| 03 | Implemented and locally accepted — server-only Drizzle/libSQL client, existing migration applied, and stable local workspace seed verified twice. PR creation and exact-head panel review remain pending the trusted GitHub panel session. |
+| 03 | Implemented and locally accepted — server-only Drizzle/libSQL client, existing migration applied, and stable local workspace seed verified twice. PR #7 targets `main`; exact-head panel review is in progress. |
 | 04 | Add workspace setup, owner authentication and public/private visibility controls. |
 | 05 | Persist idea submission with server validation, rate limits and moderation state. |
 | 06 | Implement searchable ideas and category/status filters with stable pagination. |
