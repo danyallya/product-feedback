@@ -36,7 +36,7 @@ Historical Day 00/01 entries describe their original workflow. This policy super
 
 Vote identity, moderation and customer-journey navigation are separate product concerns. Use actual completed changes to determine commits, and keep the matching data migration/validation tests together.
 
-Next planned scope: Day 02 — public board shell, shared controls, persistent accessible theme and working navigation targets.
+Next planned scope: finish Day 03 GitHub PR creation and exact-head panel review for the local database connection and seed.
 
 ## Contribution evidence
 
