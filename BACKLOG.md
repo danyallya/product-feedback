@@ -15,8 +15,8 @@ Nexus returned 404 for packages used by this project. Following the user's appro
 |---|---|
 | 01 | Done — document customer journey, status vocabulary, vote privacy, workspace boundary, API/test contract and baseline. |
 | 02 | Merged — BoardLayout, shared vote control, corrected Newest filter and safe theme. PR #4 merged at `1778ecd`; follow-up issues #3 and #5 remain open; #6 mobile readability was fixed in the PR. |
-| 03 | Implemented and locally accepted — server-only Drizzle/libSQL client, existing migration applied, and stable local workspace seed verified twice. PR #7 targets `main`; exact-head panel review is in progress. |
-| 04 | Add workspace setup, owner authentication and public/private visibility controls. |
+| 03 | Merged — server-only Drizzle/libSQL client, existing migration and stable local workspace seed. PR #7 merged at `b2851aa`; final reviewed head `0bf1cb5`; local `main` synchronized. |
+| 04 | Implemented — first-owner setup, password sign-in, signed owner sessions, public/private workspace visibility and owner settings. Persisted idea and roadmap content remains Day 05/10 work. |
 | 05 | Persist idea submission with server validation, rate limits and moderation state. |
 | 06 | Implement searchable ideas and category/status filters with stable pagination. |
 | 07 | Persist anonymous/member votes with a documented repeat-vote policy. |
@@ -49,10 +49,12 @@ The work log must show review, focused tests, implemented scope, debugging, resp
 
 - Day 01: Done. The current preview journey, canonical status vocabulary, vote identity policy, workspace access boundaries and future API/test plan are documented. The board and roadmap anchors are verified; visible Changelog, Privacy, Community guidelines and Powered-by links still lack targets. Carry this into Day 02 while extracting the board shell and accessible shared controls.
 
+- Day 04: Implemented locally on `day-04/workspace-access`. Setup is protected by a server token and can claim only the lone reserved demo workspace; scrypt owner credentials produce a signed 12-hour cookie. Server-rendered private routes gate anonymous visitors, while owners can rename a workspace and update its visibility. Unit/integration checks cover validation, same-origin requests, session tampering/expiry, login, private-route gating, settings updates and setup replay. Migration applied and the synthetic seed remained stable without overwriting owner-managed fields. Day 04 delivery review and GitHub PR receipt are recorded in DAILY-LOG.md after panel completion.
+
 ## Process change effective Day 02 — 2026-10-27
 
 Apply [DELIVERY-POLICY.md](DELIVERY-POLICY.md) to every remaining ticket: finish Morrow before the next repository, use meaningful scope-driven commits and deliver through its own reviewed PR. A blocked external gate needs a concrete record and next action. This adds delivery gates without moving Day 02–30 product work or changing completed history.
 
 ## Contribution integration — 2026-10-27
 
-Effective Day 02: apply [CONTRIBUTING.md](CONTRIBUTING.md) inside existing tickets. At already scheduled weekly reviews, assess real feedback such as an opaque-voter duplicate/withdrawal or public/private moderation case; at documentation/setup tickets, improve a synthetic idea-to-roadmap walkthrough with honest vote state. Day 30 records actual contribution evidence and outstanding external dependencies. No day is renumbered and no quota or badge is a completion criterion. The Day 03 local seed now supports that reproducible walkthrough. Next scope remains Day 03 delivery review; Day 04 has not started.
+Effective Day 02: apply [CONTRIBUTING.md](CONTRIBUTING.md) inside existing tickets. At already scheduled weekly reviews, assess real feedback such as an opaque-voter duplicate/withdrawal or public/private moderation case; at documentation/setup tickets, improve a synthetic idea-to-roadmap walkthrough with honest vote state. Day 30 records actual contribution evidence and outstanding external dependencies. No day is renumbered and no quota or badge is a completion criterion. The Day 03 local seed now supports that reproducible walkthrough. Day 04 adds owner access and visibility controls; its panel delivery gate is recorded in DAILY-LOG.md.

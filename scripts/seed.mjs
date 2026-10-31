@@ -63,8 +63,8 @@ function upsert(sql, args) {
 
 const statements = [
   upsert(
-    `INSERT INTO workspaces (id, name, slug, created_at) VALUES (?, ?, ?, ?)
-     ON CONFLICT(id) DO UPDATE SET name = excluded.name, slug = excluded.slug, created_at = excluded.created_at`,
+    `INSERT INTO workspaces (id, name, slug, visibility, created_at) VALUES (?, ?, ?, 'public', ?)
+     ON CONFLICT(id) DO NOTHING`,
     [sampleWorkspace.id, sampleWorkspace.name, sampleWorkspace.slug, sampleWorkspace.createdAt],
   ),
   ...sampleIdeas.map((idea) =>

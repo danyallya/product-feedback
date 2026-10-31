@@ -5,7 +5,7 @@ const projectRoot = fileURLToPath(new URL("./", import.meta.url));
 const vitestConfig = defineConfig({
   esbuild: { jsx: "automatic" },
   resolve: { alias: { "@": projectRoot } },
-  test: { environment: "node", include: ["tests/**/*.test.tsx", "tests/**/*.test.mjs"] },
+  test: { environment: "node", include: ["tests/**/*.test.ts", "tests/**/*.test.tsx", "tests/**/*.test.mjs"] },
 });
 
 export default vitestConfig;

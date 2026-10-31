@@ -3,6 +3,9 @@ export const workspaces=sqliteTable("workspaces",{
  id:text("id").primaryKey(),
  name:text("name").notNull(),
  slug:text("slug").notNull().unique(),
+ visibility:text("visibility",{enum:["public","private"]}).notNull().default("public"),
+ ownerPasswordSalt:text("owner_password_salt"),
+ ownerPasswordHash:text("owner_password_hash"),
  createdAt:integer("created_at",{mode:"timestamp"}).notNull()
 });
 export const ideas=sqliteTable("ideas",{
