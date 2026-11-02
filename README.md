@@ -11,7 +11,7 @@ Morrow gives product teams a clear way to collect customer requests, understand 
 - Responsive light/dark experience and an installable PWA shell.
 - Planned subscriptions, moderation, analytics, XLSX/PDF reports and integrations.
 
-The current foundation provides the branded product portal, Drizzle persistence for workspaces, ideas, votes and comments, and an initial single-owner workspace setup/sign-in flow. The public board still uses curated session-preview content; saved ideas and roadmap content remain on the delivery plan.
+The current foundation provides the branded product portal, Drizzle persistence for workspaces, ideas, votes and comments, single-owner workspace setup/sign-in, and a persistent public idea submission endpoint. The board and roadmap still render curated session-preview content; submitted ideas are stored privately as pending until a future moderation and public-read workflow is built.
 
 ## Technology
 Next.js App Router, React, TypeScript, Tailwind CSS, shadcn/ui component patterns, Radix UI Tabs, React Icons, Drizzle ORM and libSQL. SQLite supports local development; Turso can host the same libSQL schema. Recharts, XLSX and jsPDF are included for planned reporting.
@@ -27,7 +27,7 @@ Requirements: Node.js 20.11+ and npm.
 6. Optionally load synthetic local workspace data with npm run db:seed. The first owner setup can claim this reserved demo workspace if it is the only workspace in the database.
 7. Start the product with npm run dev and open http://localhost:3000/setup to configure the owner account.
 
-Do not commit .env, a local database, access tokens or the local .npmrc. Owner setup and workspace visibility are available; persistent public ideas, votes, comments and roadmap routes remain scheduled follow-up work.
+Do not commit .env, a local database, access tokens or the local .npmrc. Owner setup and workspace visibility are available. Day 05 adds a public submission API, but public reads, votes, comments, moderation tools and roadmap routes remain scheduled follow-up work.
 
 ## Commands
 - npm run dev — local app
@@ -48,7 +48,7 @@ See AGENTS.md for the everyday review, testing and documentation cycle and BACKL
 
 ## Day 01 customer journey and status vocabulary
 
-- The current `/` preview lets a visitor browse/search/filter ideas, toggle a local vote, submit a local idea, and view roadmap lanes. It uses curated examples and component state; submissions and votes disappear on reload and are not persisted.
+- Historical Day 01 behavior: the `/` preview used curated examples and component state; local submissions and votes disappeared on reload. Day 05 replaced idea submission with a persistent, moderation-pending flow; preview voting remains local.
 - Current navigation targets are `#ideas` and `#roadmap`. Changelog, privacy, community-guideline and powered-by links are visible placeholders without target sections or routes. These destinations need explicit sections or links before their controls are presented as working navigation.
 - Canonical idea statuses for the product are Considering, Planned, In progress, Shipped and Declined. The preview currently demonstrates Considering, Planned and In progress; the roadmap separately shows shipped work. Public status changes need an update timestamp and workspace-team attribution.
 - The public customer journey is browse → filter/search → vote or submit context → follow a status update through the roadmap. Submission must show its moderation state; a vote is one active vote per idea and can be withdrawn. Repeated requests must be idempotent, and the stored voter key must be an opaque workspace-scoped identifier, never a raw IP address or email address. The existing unique `(idea_id, voter_key)` index supports that future contract; current votes are only local toggles.
@@ -63,9 +63,9 @@ See AGENTS.md for the everyday review, testing and documentation cycle and BACKL
 
 The server derives workspace scope from the public slug for public reads and from the authenticated session for private/team actions. A caller-supplied workspace ID must never grant access. Private ideas and moderation state stay out of public responses and service-worker caches.
 
-Planned route contract: `GET /api/workspaces/:slug/ideas` lists only public ideas with status/category filters and stable pagination; `POST /api/workspaces/:slug/ideas` validates and rate-limits submissions before moderation; `POST`/`DELETE /api/ideas/:id/vote` idempotently adds or withdraws the visitor's vote; `GET /api/workspaces/:slug/roadmap` returns published roadmap items; `GET`/`POST /api/ideas/:id/comments` enforce visibility and moderation; authenticated `PATCH /api/team/ideas/:id` changes status with attribution. These are future contracts, not implemented routes.
+Planned route contract: `GET /api/workspaces/:slug/ideas` lists only public ideas with status/category filters and stable pagination; `POST /api/ideas` accepts a validated submission for the server-selected public workspace and stores it as pending; it is same-origin protected and uses a privacy-preserving cookie rate limit; `POST`/`DELETE /api/ideas/:id/vote` idempotently adds or withdraws the visitor's vote; `GET /api/workspaces/:slug/roadmap` returns published roadmap items; `GET`/`POST /api/ideas/:id/comments` enforce visibility and moderation; authenticated `PATCH /api/team/ideas/:id` changes status with attribution. The remaining routes in this contract are future work.
 
-The test plan covers public/private workspace isolation, anonymous write settings, owner/member authorization, hidden and pending ideas, input validation/rate limits, duplicate-vote idempotency and withdrawal, comment moderation, status timestamp/attribution, stable filtering/pagination, and service-worker cache exclusions. Current Vitest coverage renders the board and tests workspace input validation, session signing/expiry/tampering, visibility policy and same-origin validation. It does not yet prove persisted idea APIs, moderation or vote identity.
+The test plan covers public/private workspace isolation, anonymous write settings, owner/member authorization, hidden and pending ideas, input validation/rate limits, duplicate-vote idempotency and withdrawal, comment moderation, status timestamp/attribution, stable filtering/pagination, and service-worker cache exclusions. Current Vitest covers the board, submission field validation, opaque rate-key policy, workspace setup, session signing/expiry/tampering, visibility policy and same-origin validation. Local HTTP acceptance verifies persistence, pending state, bounded request bodies, origin protection and rate limiting. Vote identity and moderation decisions are still future work.
 
 ## Trust and moderation
 Customer ideas can include sensitive business context. Production must use authenticated administrative actions, validated public submissions, scoped exports, rate limits, spam controls and a clear retention/deletion policy. Public service-worker caches must never include private workspace data.
@@ -93,9 +93,15 @@ BoardLayout owns public header/footer navigation and a skip link. Changelog, pri
 - `/setup` creates the first owner account using the server-only `MORROW_SETUP_TOKEN`, or claims the reserved synthetic workspace when it is the only existing workspace. The stable first-workspace ID prevents two simultaneous initial setup requests from creating two owners.
 - `/sign-in` checks a workspace slug and owner password. Passwords are stored as scrypt hashes with random salts; the owner session is an HMAC-signed, HttpOnly, SameSite=Lax cookie with a 12-hour lifetime and `Secure` in production. Same-origin checks protect setup, sign-in, settings updates and sign-out.
 - `/w/:slug` checks visibility on every server render. A private workspace returns only its sign-in gate to anonymous visitors; the service worker leaves navigations and API requests network-only. An authenticated owner can rename the workspace and switch public/private visibility.
-- This is a single-owner preview flow. Role-based memberships, password recovery, login throttling and persisted public board content remain future work; use HTTPS and an edge request limit before exposing owner sign-in publicly. Rotating `MORROW_SESSION_SECRET` invalidates existing owner sessions.
-- The seeded board remains synthetic and the main `/` page remains a session preview. Setup does not turn those sample ideas into persistent customer feedback.
+- This is a single-owner preview flow. Role-based memberships, password recovery and owner login throttling remain future work; use HTTPS and an edge request limit before exposing owner sign-in publicly. Rotating `MORROW_SESSION_SECRET` invalidates existing owner sessions.
+- The seeded board remains synthetic and the main `/` page remains a session preview. Setup does not turn those sample ideas into persistent customer feedback. Day 05 submissions are stored separately as pending and do not enter this preview feed.
+
+## Day 05 public submissions
+
+- Share an idea opens a keyboard-operable native dialog with labeled title, description and category fields. The API trims and validates each field, accepts same-origin requests only, and stores new ideas against the server-selected public workspace with `pending` moderation state. The response confirms that the idea is awaiting review; pending content is not returned to the public board or roadmap.
+- The API allows three submissions per 10-minute window per random visitor cookie. The cookie is HttpOnly, SameSite=Lax and Secure in production. Database rate-limit rows store only an HMAC digest of the opaque cookie and an expiring fixed-window counter; raw cookies, IP addresses, names and email addresses are not stored. Old window rows are pruned on submission.
+- This database-backed per-cookie application safeguard can be reset by clearing a browser cookie. Add edge/IP abuse controls before public production exposure. Owner moderation, status updates and database-backed public reads are not implemented yet.
 
 ## Preview roadmap and subscription limits
 
-The preview roadmap is derived from the same in-session ideas and canonical statuses as the board; lane counts reflect visible cards, and empty lanes say so. It is illustrative only and is not a live delivery schedule. Update subscriptions are not available in this preview.
+The preview roadmap is derived from the same in-session ideas and canonical statuses as the board; lane counts reflect visible cards, and empty lanes say so. It is illustrative only and is not a live delivery schedule. Pending persisted submissions do not appear in the preview. Update subscriptions are not available in this preview.

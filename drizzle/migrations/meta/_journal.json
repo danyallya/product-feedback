@@ -15,6 +15,13 @@
       "when": 1793425615504,
       "tag": "0001_striped_mantis",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793621351926,
+      "tag": "0002_productive_jazinda",
+      "breakpoints": true
     }
   ]
 }
