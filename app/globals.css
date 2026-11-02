@@ -17,3 +17,23 @@
 @media(max-width:520px){.access-page{padding:16px 12px;align-items:start;padding-top:8vh}.access-card{padding:24px 19px}.access-brand{margin-bottom:22px}}
 
 .roadmap-preview-note,.roadmap-empty{font-size:7px;line-height:1.5;color:var(--muted);margin:0 0 10px}.roadmap-empty{padding:8px 6px;border:1px dashed var(--line);border-radius:6px}.subscribe-preview-status{font-size:7px;line-height:1.4;color:var(--muted);text-align:right;max-width:62px}
+.idea-submit-dialog{position:fixed;inset:0;z-index:20;width:100%;max-width:none;height:100%;max-height:none;margin:0;padding:20px;display:grid;place-items:center;border:0;background:rgb(20 25 29 / 62%);color:var(--ink)}
+.idea-submit-dialog:not([open]){display:none}
+.idea-submit-panel{position:relative;width:min(100%,520px);max-height:min(90vh,760px);overflow:auto;padding:32px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:0 24px 80px rgb(0 0 0 / 25%)}
+.idea-submit-panel h2{margin:9px 36px 8px 0;font-family:var(--serif);font-size:29px;line-height:1.15}
+.idea-submit-panel>p{margin:0 0 22px;color:var(--muted);font-size:14px;line-height:1.6}
+.idea-submit-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);font-size:24px;cursor:pointer}
+.idea-submit-form{display:grid;gap:16px}
+.idea-submit-form label{display:grid;gap:7px;font-size:13px;font-weight:700}
+.idea-submit-form input,.idea-submit-form textarea,.idea-submit-form select{width:100%;min-height:44px;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-weight:400}
+.idea-submit-form textarea{min-height:120px;resize:vertical;line-height:1.55}
+.idea-submit-form small{color:var(--muted);font-size:11px;font-weight:400;line-height:1.5}
+.idea-submit-form :is(input,textarea,select):focus-visible,.idea-submit-panel button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.idea-submit-error{margin:0;color:#a52e24;font-size:13px;line-height:1.5}
+.idea-submit-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:4px}
+.idea-submit-actions button,.idea-submit-success button{min-height:42px;padding:0 16px;border:1px solid var(--line);border-radius:8px;background:var(--coral);color:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.idea-submit-actions .idea-submit-cancel{background:transparent;color:var(--ink)}
+.idea-submit-actions button:disabled{opacity:.65;cursor:wait}
+.idea-submit-success{display:grid;gap:20px;padding:18px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:14px;line-height:1.65}
+.idea-submit-success button{justify-self:end}
+@media(max-width:600px){.idea-submit-dialog{padding:12px}.idea-submit-panel{padding:26px 20px}.idea-submit-panel h2{font-size:25px}}

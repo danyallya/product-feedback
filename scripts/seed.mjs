@@ -69,10 +69,10 @@ const statements = [
   ),
   ...sampleIdeas.map((idea) =>
     upsert(
-      `INSERT INTO ideas (id, workspace_id, title, description, category, status, author_name, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `INSERT INTO ideas (id, workspace_id, title, description, category, status, moderation_status, author_name, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, 'approved', ?, ?, ?)
        ON CONFLICT(id) DO UPDATE SET workspace_id = excluded.workspace_id, title = excluded.title,
-       description = excluded.description, category = excluded.category, status = excluded.status,
+       description = excluded.description, category = excluded.category, status = excluded.status, moderation_status = 'approved',
        author_name = excluded.author_name, created_at = excluded.created_at, updated_at = excluded.updated_at`,
       [idea.id, sampleWorkspace.id, idea.title, idea.description, idea.category, idea.status, idea.authorName, idea.createdAt, idea.updatedAt],
     ),

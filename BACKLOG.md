@@ -14,10 +14,10 @@ Nexus returned 404 for packages used by this project. Following the user's appro
 | Day | Deliverable |
 |---|---|
 | 01 | Done — document customer journey, status vocabulary, vote privacy, workspace boundary, API/test contract and baseline. |
-| 02 | Merged — BoardLayout, shared vote control, corrected Newest filter and safe theme. PR #4 merged at `1778ecd`; follow-up issues #3 and #5 remain open; #6 mobile readability was fixed in the PR. |
+| 02 | Merged — BoardLayout, shared vote control, corrected Newest filter and safe theme. PR #4 merged at `1778ecd`; follow-up issues #3 and #5 were completed by maintenance PR #9; #6 mobile readability was fixed in the PR. |
 | 03 | Merged — server-only Drizzle/libSQL client, existing migration and stable local workspace seed. PR #7 merged at `b2851aa`; final reviewed head `0bf1cb5`; local `main` synchronized. |
 | 04 | Implemented — first-owner setup, password sign-in, signed owner sessions, public/private workspace visibility and owner settings. Persisted idea and roadmap content remains Day 05/10 work. |
-| 05 | Persist idea submission with server validation, rate limits and moderation state. |
+| 05 | Done — persist public idea submissions with bounded server validation, privacy-preserving visitor rate limits, and pending moderation. The board confirms acceptance without exposing pending content. |
 | 06 | Implement searchable ideas and category/status filters with stable pagination. |
 | 07 | Persist anonymous/member votes with a documented repeat-vote policy. |
 | 08 | Add idea details and moderated threaded comments. |
@@ -50,6 +50,10 @@ The work log must show review, focused tests, implemented scope, debugging, resp
 - Day 01: Done. The current preview journey, canonical status vocabulary, vote identity policy, workspace access boundaries and future API/test plan are documented. The board and roadmap anchors are verified; visible Changelog, Privacy, Community guidelines and Powered-by links still lack targets. Carry this into Day 02 while extracting the board shell and accessible shared controls.
 
 - Day 04: Implemented locally on `day-04/workspace-access`. Setup is protected by a server token and can claim only the lone reserved demo workspace; scrypt owner credentials produce a signed 12-hour cookie. Server-rendered private routes gate anonymous visitors, while owners can rename a workspace and update its visibility. Unit/integration checks cover validation, same-origin requests, session tampering/expiry, login, private-route gating, settings updates and setup replay. Migration applied and the synthetic seed remained stable without overwriting owner-managed fields. Day 04 delivery review and GitHub PR receipt are recorded in DAILY-LOG.md after panel completion.
+
+## Day 05 submission boundaries
+
+The public submission API writes into the single public workspace selected by the server. New records receive `pending` moderation state and are never added to the public preview or roadmap. The visitor cookie is random, HttpOnly and SameSite=Lax; only a keyed digest plus a 10-minute window counter is stored, with three submissions allowed per window. This is an application-level per-cookie limit and can be reset by clearing cookies; production exposure still requires an edge/IP abuse limit. Names, emails, IP addresses and raw visitor tokens are not stored. Owner moderation and database-backed public reads remain later work.
 
 ## Process change effective Day 02 — 2026-10-27
 

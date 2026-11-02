@@ -12,6 +12,14 @@ import {
   parseWorkspaceSettingsInput,
   parseWorkspaceSetupInput,
 } from "../lib/workspace-policy";
+import {
+  createIdeaVisitorToken,
+  getIdeaRateBucketKey,
+  IDEA_SUBMISSION_LIMIT,
+  IDEA_SUBMISSION_WINDOW_SECONDS,
+  isValidIdeaVisitorToken,
+  parseIdeaSubmission,
+} from "../lib/idea-submissions";
 
 const secret = "a-session-secret-with-at-least-32-bytes";
 
@@ -60,5 +68,28 @@ describe("same-origin mutation guard", () => {
     expect(isSameOriginRequest(new Request("https://morrow.test/api/auth", { headers: { origin: "https://attacker.test" } }))).toBe(false);
     expect(isSameOriginRequest(new Request("https://morrow.test/api/auth"))).toBe(false);
     expect(isSameOriginRequest(new Request("https://morrow.test/api/auth", { headers: { origin: "not an origin" } }))).toBe(false);
+  });
+});
+
+describe("public idea submission policy", () => {
+  it("normalizes valid input and rejects missing, oversized or unsupported fields", () => {
+    expect(parseIdeaSubmission({ title: "  Keyboard modes ", description: "  Let teams save accessible board layouts. ", category: "Accessibility" }))
+      .toEqual({ title: "Keyboard modes", description: "Let teams save accessible board layouts.", category: "Accessibility" });
+    expect(parseIdeaSubmission({ title: "", description: "A sufficiently long description", category: "Other" })).toBeNull();
+    expect(parseIdeaSubmission({ title: "Hi", description: "A sufficiently long description", category: "Other" })).toBeNull();
+    expect(parseIdeaSubmission({ title: "Good idea", description: "Too short", category: "Other" })).toBeNull();
+    expect(parseIdeaSubmission({ title: "x".repeat(121), description: "A sufficiently long description", category: "Other" })).toBeNull();
+    expect(parseIdeaSubmission({ title: "Good idea", description: "x".repeat(2001), category: "Other" })).toBeNull();
+    expect(parseIdeaSubmission({ title: "Good idea", description: "A sufficiently long description", category: "Executive" })).toBeNull();
+  });
+
+  it("uses opaque visitor cookies and deterministic, secret-keyed fixed windows", () => {
+    const token = createIdeaVisitorToken();
+    const now = 1_800_000_000;
+    expect(isValidIdeaVisitorToken(token)).toBe(true);
+    expect(isValidIdeaVisitorToken("not-a-token")).toBe(false);
+    expect(IDEA_SUBMISSION_LIMIT).toBe(3);
+    expect(getIdeaRateBucketKey(token, secret, now)).toBe(getIdeaRateBucketKey(token, secret, now + IDEA_SUBMISSION_WINDOW_SECONDS - 1));
+    expect(getIdeaRateBucketKey(token, secret, now)).not.toBe(getIdeaRateBucketKey(token, "a-different-session-secret-longer-than-32-bytes", now));
   });
 });

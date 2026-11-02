@@ -15,10 +15,16 @@ export const ideas=sqliteTable("ideas",{
  description:text("description").notNull(),
  category:text("category").notNull(),
  status:text("status").notNull().default("considering"),
+ moderationStatus:text("moderation_status",{enum:["pending","approved","rejected"]}).notNull().default("pending"),
  authorName:text("author_name").notNull(),
  createdAt:integer("created_at",{mode:"timestamp"}).notNull(),
  updatedAt:integer("updated_at",{mode:"timestamp"}).notNull()
 },table=>[index("ideas_workspace_status_created").on(table.workspaceId,table.status,table.createdAt)]);
+export const ideaSubmissionLimits=sqliteTable("idea_submission_limits",{
+ bucketKey:text("bucket_key").primaryKey(),
+ attempts:integer("attempts").notNull(),
+ expiresAt:integer("expires_at").notNull()
+},table=>[index("idea_submission_limits_expires").on(table.expiresAt)]);
 export const votes=sqliteTable("votes",{
  id:text("id").primaryKey(),
  ideaId:text("idea_id").notNull().references(()=>ideas.id,{onDelete:"cascade"}),

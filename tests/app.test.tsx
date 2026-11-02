@@ -18,6 +18,10 @@ describe("product-feedback workspace", () => {
     expect(markup).toContain('Subscriptions are unavailable in this preview.');
     expect(markup).not.toContain('Subscribe to updates');
     expect(markup).toContain('aria-label="Find an idea"');
+    expect(markup).toContain('id="share-idea-title"');
+    expect(markup).toContain('name="title"');
+    expect(markup).toContain('name="description"');
+    expect(markup).toContain('Send for review');
     for (const target of ['changelog', 'privacy', 'guidelines', 'powered']) {
       expect(markup).toContain(`id="${target}"`);
       expect(markup).toContain(`href="#${target}"`);
