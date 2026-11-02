@@ -95,3 +95,7 @@ BoardLayout owns public header/footer navigation and a skip link. Changelog, pri
 - `/w/:slug` checks visibility on every server render. A private workspace returns only its sign-in gate to anonymous visitors; the service worker leaves navigations and API requests network-only. An authenticated owner can rename the workspace and switch public/private visibility.
 - This is a single-owner preview flow. Role-based memberships, password recovery, login throttling and persisted public board content remain future work; use HTTPS and an edge request limit before exposing owner sign-in publicly. Rotating `MORROW_SESSION_SECRET` invalidates existing owner sessions.
 - The seeded board remains synthetic and the main `/` page remains a session preview. Setup does not turn those sample ideas into persistent customer feedback.
+
+## Preview roadmap and subscription limits
+
+The preview roadmap is derived from the same in-session ideas and canonical statuses as the board; lane counts reflect visible cards, and empty lanes say so. It is illustrative only and is not a live delivery schedule. Update subscriptions are not available in this preview.
