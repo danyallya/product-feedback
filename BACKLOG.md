@@ -58,3 +58,9 @@ Apply [DELIVERY-POLICY.md](DELIVERY-POLICY.md) to every remaining ticket: finish
 ## Contribution integration — 2026-10-27
 
 Effective Day 02: apply [CONTRIBUTING.md](CONTRIBUTING.md) inside existing tickets. At already scheduled weekly reviews, assess real feedback such as an opaque-voter duplicate/withdrawal or public/private moderation case; at documentation/setup tickets, improve a synthetic idea-to-roadmap walkthrough with honest vote state. Day 30 records actual contribution evidence and outstanding external dependencies. No day is renumbered and no quota or badge is a completion criterion. The Day 03 local seed now supports that reproducible walkthrough. Day 04 adds owner access and visibility controls; its panel delivery gate is recorded in DAILY-LOG.md.
+
+## Day 02 carry-over resolved before Day 05
+
+- Issue #3: make the preview board and roadmap share one typed synthetic idea/status source, calculate lane counts from displayed records, and render a clear empty lane. Preserve the Day 01 canonical vocabulary and label the roadmap as an illustration rather than a release feed.
+- Issue #5: remove the nonfunctional subscription action and monthly email promise until a real subscription flow exists; explain that subscriptions are unavailable in the preview.
+- These are maintenance fixes to unresolved Day 02 carry-over, not a start or renumbering of Day 05. Day 05 remains gated on the user's manual trigger.

@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { VoteButton } from '../components/vote-button';
 import { restoreAppearance, persistAppearance } from '../components/appearance';
 import { selectIdeas } from '../lib/idea-view';
+import { ideasForRoadmap, roadmapLanes, seedIdeas } from '../lib/preview-ideas';
 describe('Morrow public controls', () => {
   it('shows all statuses in Newest and filters planned without mutating the source', () => {
     const ideas = [
@@ -24,5 +25,12 @@ describe('Morrow public controls', () => {
     expect(restoreAppearance({ getItem: () => 'unknown' }, true)).toBe(true);
     expect(restoreAppearance({ getItem: () => { throw Error(); } }, false)).toBe(false);
     expect(() => persistAppearance({ setItem: () => { throw Error(); } }, true)).not.toThrow();
+  });
+  it('builds roadmap lanes and counts from the same preview ideas as the board', () => {
+    expect(roadmapLanes.map(lane => [lane.label, ideasForRoadmap(seedIdeas, lane.status).length])).toEqual([
+      ['In progress', 1], ['Up next', 1], ['Recently shipped', 0],
+    ]);
+    expect(ideasForRoadmap(seedIdeas, 'In progress')[0].title).toBe('Saved views for every kind of work');
+    expect(ideasForRoadmap(seedIdeas, 'In progress')).not.toContain(seedIdeas[0]);
   });
 });
